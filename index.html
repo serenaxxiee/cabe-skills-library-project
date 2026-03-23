@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CABE AI Skills & Prompts Library — Project Overview</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; color: #1a1a2e; padding: 32px; }
+  h1 { text-align: center; font-size: 1.8rem; margin-bottom: 6px; color: #1a1a2e; }
+  .subtitle { text-align: center; color: #666; font-size: 1rem; margin-bottom: 36px; }
+
+  /* Workstream cards */
+  .workstreams { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }
+  .ws-card { background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); border-top: 5px solid; display: flex; flex-direction: column; }
+  .ws-card.ws1 { border-top-color: #4361ee; }
+  .ws-card.ws2 { border-top-color: #f72585; }
+  .ws-card.ws3 { border-top-color: #4cc9f0; }
+  .ws-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 4px; }
+  .ws1 .ws-label { color: #4361ee; }
+  .ws2 .ws-label { color: #f72585; }
+  .ws3 .ws-label { color: #4cc9f0; }
+  .ws-card h2 { font-size: 1.15rem; margin-bottom: 12px; }
+  .ws-card .people { font-size: 0.85rem; color: #888; margin-bottom: 16px; }
+  .ws-card ul { list-style: none; padding: 0; flex: 1; }
+  .ws-card ul li { position: relative; padding-left: 20px; margin-bottom: 10px; font-size: 0.9rem; line-height: 1.45; }
+  .ws-card ul li::before { content: ''; position: absolute; left: 0; top: 7px; width: 10px; height: 10px; border-radius: 50%; }
+  .ws1 ul li::before { background: #4361ee; }
+  .ws2 ul li::before { background: #f72585; }
+  .ws3 ul li::before { background: #4cc9f0; }
+
+  /* Timeline */
+  .timeline-section { margin-bottom: 40px; }
+  .timeline-section h2 { text-align: center; font-size: 1.3rem; margin-bottom: 24px; }
+  .timeline { display: flex; gap: 0; position: relative; }
+  .timeline::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #4361ee, #f72585, #4cc9f0); border-radius: 2px; transform: translateY(-50%); z-index: 0; }
+  .day { flex: 1; text-align: center; position: relative; z-index: 1; padding: 0 8px; }
+  .day-dot { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 4px solid #4361ee; margin: 0 auto 10px; position: relative; }
+  .day:nth-child(2) .day-dot { border-color: #7b2ff7; }
+  .day:nth-child(3) .day-dot { border-color: #f72585; }
+  .day:nth-child(4) .day-dot { border-color: #4cc9f0; }
+  .day-dot.star { border-color: #ffd166; background: #ffd166; }
+  .day-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; }
+  .day-desc { font-size: 0.8rem; color: #555; background: #fff; border-radius: 10px; padding: 10px 12px; box-shadow: 0 1px 6px rgba(0,0,0,0.06); min-height: 70px; display: flex; align-items: center; justify-content: center; text-align: center; }
+
+  /* Decisions */
+  .decisions-section h2 { text-align: center; font-size: 1.3rem; margin-bottom: 20px; }
+  .decisions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
+  .decision-card { background: #fff3cd; border-radius: 12px; padding: 20px; border-left: 5px solid #ffc107; }
+  .decision-card h3 { font-size: 0.95rem; margin-bottom: 8px; }
+  .decision-card p { font-size: 0.85rem; color: #555; }
+  .decision-card .blocker { display: inline-block; font-size: 0.7rem; font-weight: 700; background: #ff6b6b; color: #fff; padding: 2px 8px; border-radius: 4px; margin-top: 8px; }
+
+  /* Pipeline */
+  .pipeline-section { margin-bottom: 40px; }
+  .pipeline-section h2 { text-align: center; font-size: 1.3rem; margin-bottom: 20px; }
+  .pipeline { display: flex; align-items: center; justify-content: center; gap: 0; }
+  .pipe-step { background: #fff; border-radius: 12px; padding: 16px 24px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); min-width: 130px; }
+  .pipe-step .pipe-icon { font-size: 1.6rem; margin-bottom: 6px; }
+  .pipe-step .pipe-label { font-size: 0.85rem; font-weight: 600; }
+  .pipe-arrow { font-size: 1.4rem; color: #aaa; margin: 0 4px; }
+
+  /* Footer */
+  .footer { text-align: center; color: #999; font-size: 0.8rem; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<h1>CABE AI Skills & Prompts Library</h1>
+<p class="subtitle">Camp AIR Project — Week of March 23–27, 2026</p>
+
+<!-- Workstreams -->
+<div class="workstreams">
+  <div class="ws-card ws1">
+    <div class="ws-label">Workstream 1</div>
+    <h2>Build the Library</h2>
+    <div class="people">Mike, Niyonika, Max, Saurabh</div>
+    <ul>
+      <li>Build the platform where people can <strong>upload</strong> their own skills/prompts and <strong>download</strong> others'</li>
+      <li>Support both skills (SKILL.md packages) and standalone prompts</li>
+      <li>Categorization & tagging so people can browse and find what they need</li>
+      <li>Search & discovery experience</li>
+      <li>Upload flow: submit, review, publish</li>
+      <li>Download/install flow: one-click adoption</li>
+      <li>Usage telemetry (downloads, ratings, freshness)</li>
+    </ul>
+  </div>
+  <div class="ws-card ws2">
+    <div class="ws-label">Workstream 2</div>
+    <h2>Skills Development & Eval</h2>
+    <div class="people">Lovella, Sameer, Serena</div>
+    <ul>
+      <li>Work with domain experts and Camp AIR teams to <strong>identify and build</strong> high-value skills</li>
+      <li>Define <strong>metadata standard</strong> so every skill ships with consistent, searchable info</li>
+      <li>Write a <strong>"Build Your Own Skill" tutorial</strong> so any team can contribute</li>
+      <li>Design the <strong>eval framework</strong> — how skills are tested, scored, and promoted</li>
+      <li><strong>Run evals</strong> on submitted skills as the quality gate before publishing to the library</li>
+    </ul>
+  </div>
+  <div class="ws-card ws3">
+    <div class="ws-label">Workstream 3</div>
+    <h2>Pilot Testing</h2>
+    <div class="people">Sameer, Lovella, Serena</div>
+    <ul>
+      <li>Run 1+ team through full pipeline</li>
+      <li>3+ skills evaluated end-to-end as proof of concept</li>
+      <li>Document friction log</li>
+      <li>Validate two paths: discover → build → contribute <em>or</em> discover → adopt → provide feedback</li>
+      <li>Feed findings back to WS1 & WS2</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Pipeline -->
+<div class="pipeline-section">
+  <h2>Skill Lifecycle — Two Paths</h2>
+  <div style="display:flex; flex-direction:column; align-items:center; gap:20px;">
+    <div class="pipeline">
+      <div class="pipe-step"><div class="pipe-icon">🔍</div><div class="pipe-label">Discover</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-icon">🔨</div><div class="pipe-label">Build</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-icon">🚀</div><div class="pipe-label">Contribute</div></div>
+    </div>
+    <div style="color:#888; font-size:0.85rem; font-weight:600;">— or —</div>
+    <div class="pipeline">
+      <div class="pipe-step"><div class="pipe-icon">🔍</div><div class="pipe-label">Discover</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-icon">📥</div><div class="pipe-label">Adopt</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-icon">💬</div><div class="pipe-label">Provide Feedback</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Timeline -->
+<div class="timeline-section">
+  <h2>Week Timeline</h2>
+  <div class="timeline">
+    <div class="day">
+      <div class="day-dot"></div>
+      <div class="day-name">Mon / Tue</div>
+      <div class="day-desc">Align on taxonomy, metadata schema & library structure</div>
+    </div>
+    <div class="day">
+      <div class="day-dot"></div>
+      <div class="day-name">Wednesday</div>
+      <div class="day-desc">Library populated, tutorial draft ready, pilot team onboarded</div>
+    </div>
+    <div class="day">
+      <div class="day-dot"></div>
+      <div class="day-name">Thursday</div>
+      <div class="day-desc">Eval run on 1+ skill, pilot feedback incorporated</div>
+    </div>
+    <div class="day">
+      <div class="day-dot star"></div>
+      <div class="day-name">Friday ⭐</div>
+      <div class="day-desc">Demo-ready! Retro & friction log complete</div>
+    </div>
+  </div>
+</div>
+
+<!-- Decisions -->
+<div class="decisions-section">
+  <h2>Decisions Needed Today</h2>
+  <div class="decisions">
+    <div class="decision-card">
+      <h3>1. Library Format</h3>
+      <p>GitHub repo? SharePoint site? Something else?</p>
+      <span class="blocker">Blocks WS1</span>
+    </div>
+    <div class="decision-card">
+      <h3>2. Extended Metadata Schema</h3>
+      <p>Skills already have name + description. Define additional fields needed for the library (tags, domain, eval status, maturity, author/team)</p>
+      <span class="blocker">Blocks WS1 + WS2</span>
+    </div>
+    <div class="decision-card">
+      <h3>3. Pilot Partners</h3>
+      <p>Identify 3+ teams / individuals for pilot testing and contributing their skills</p>
+      <span class="blocker">Blocks WS3</span>
+    </div>
+  </div>
+</div>
+
+<div class="footer">CABE AI Skills & Prompts Library — Camp AIR 2026</div>
+
+</body>
+</html>
